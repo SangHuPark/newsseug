@@ -1,4 +1,4 @@
-<h1 style="border-bottom: none;">📰 뉴스를 한눈에, "뉴쓱"</h1>
+<span style="font-size: 28px;">📰 뉴스를 한눈에, "뉴쓱"</span>
 
 ## 1. 소개 📌
 
