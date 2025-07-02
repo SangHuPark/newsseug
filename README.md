@@ -62,7 +62,7 @@
 | <img width="40%" src="./etc/asset/search.gif"> | -->
 
 <p>
-  <img width="3%" src="./etc/asset/search.gif" alt="검색 기능">
+  <img width="35%" src="./etc/asset/search.gif" alt="검색 기능">
 </p>
 
 </br>
