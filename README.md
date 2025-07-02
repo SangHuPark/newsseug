@@ -61,8 +61,8 @@
 | :-----------------------------: |
 | <img width="40%" src="./etc/asset/search.gif"> | -->
 
-<p align="center">
-  <img width="35%" src="./etc/asset/search.gif" alt="검색 기능">
+<p>
+  <img width="3%" src="./etc/asset/search.gif" alt="검색 기능">
 </p>
 
 </br>
