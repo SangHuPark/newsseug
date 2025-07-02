@@ -57,9 +57,13 @@
 
 키워드를 입력하면 관련된 기사와 언론사를 제공합니다.
 
-|            검색            |
+<!-- |            검색            |
 | :-----------------------------: |
-| <img width="40%" src="./etc/asset/search.gif"> |
+| <img width="40%" src="./etc/asset/search.gif"> | -->
+
+<p align="center">
+  <img width="45%" src="./etc/asset/search.gif" alt="검색 기능">
+</p>
 
 </br>
 
