@@ -59,7 +59,7 @@
 
 |                      검색                      |
 | :--------------------------------------------: |
-| <img width="55%" src="./etc/asset/search.gif"> |
+| <img width="40%" src="./etc/asset/search.gif"> |
 
 </br>
 
