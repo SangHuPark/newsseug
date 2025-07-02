@@ -1,10 +1,13 @@
-<span style="font-size: 28px;">📰 뉴스를 한눈에, "뉴쓱"</span>
+# 📰 뉴스를 한눈에, "뉴쓱"
+</br>
 
 ## 1. 소개 📌
 
 **뉴쓱**은 사람들이 뉴스를 더 쉽고 재밌게 소비할 수 있도록 **뉴스 기사를 숏폼 형태로 제공**하는 커뮤니티 플랫폼입니다.
 
 사용자들은 간단한 숏폼 영상으로 최신 뉴스를 빠르게 확인하고, 접근성을 높인 인터페이스를 통해 다양한 뉴스를 소비할 수 있습니다.
+
+</br>
 
 
 ## 2. 주요 기능 💻
@@ -28,6 +31,8 @@
 | :------------------------------------------: | :------------------------------------------------: |
 | <img width="55%" src="./etc/asset/home.gif"> | <img width="55%" src="./etc/asset/user_video.gif"> |
 
+---
+
 ### 2.2 언론사 구독 💼
 
 사용자가 관심 있는 언론사를 구독하여 해당 언론사의 기사 숏폼을 모아볼 수 있습니다.
@@ -35,6 +40,8 @@
 |                    언론사 구독                    |              구독한 언론사 기사 조회              |
 | :-----------------------------------------------: | :-----------------------------------------------: |
 | <img width="55%" src="./etc/asset/subscribe-1.gif"> | <img width="55%" src="./etc/asset/subscribe-2.gif"> |
+
+---
 
 ### 2.3. 북마크 📂 
 
@@ -44,6 +51,8 @@
 | :--------------------------------------------: | :--------------------------------------------: |
 | <img width="55%" src="./etc/asset/scrap1.gif"> | <img width="55%" src="./etc/asset/scrap2.gif"> |
 
+---
+
 ### 2.4. 검색 🔍 
 
 키워드를 입력하면 관련된 기사와 언론사를 제공합니다.
@@ -51,6 +60,8 @@
 |                      검색                      |
 | :--------------------------------------------: |
 | <img width="55%" src="./etc/asset/search.gif"> |
+
+</br>
 
 ## 3. 핵심 기능 🎥
 
@@ -60,11 +71,15 @@
 
 <img width="600" src="./etc/asset/functional-flow-chart.png">
 
+---
+
 ### 3.2. 크롤링 🕷
 
 BeautifulSoup4 라이브러리를 활용해 각 언론사별 크롤러를 구현했습니다.
 
 <img width="600" src="./etc/asset/crawler-compare.png">
+
+---
 
 ### 3.3. 서버리스 환경 🌐 
 
@@ -74,17 +89,23 @@ BeautifulSoup4 라이브러리를 활용해 각 언론사별 크롤러를 구현
 
 <img width="600" src="./etc/asset/server-less-compare.png">
 
+---
+
 ### 3.4. 프롬프트 엔지니어링 ⚙️
 
 관련 논문을 참고해 정확도를 61%에서 87%로 상승시킨 5가지 방법 중 3가지를 적용하여 다음 사진과 같이 작성했습니다.
 
 <img width="600" src="./etc/asset/prompt.png">
 
+---
+
 ### 3.5. 시나리오 생성 📃
 
 기사 원문을 전달하면 프롬프트를 통해 해당 기사를 6개의 장면으로 분할하여 다음과 같은 사진과 같이 각 장면에 대한 묘사와 대사를 생성합니다.
 
 <img width="600" src="./etc/asset/scenario.png">
+
+---
 
 ### 3.6. 이미지 생성 🎞️
 
@@ -94,17 +115,23 @@ BeautifulSoup4 라이브러리를 활용해 각 언론사별 크롤러를 구현
 | :--------------------------------------------: | :--------------------------------------------: |
 | <img width="275" src="./etc/asset/before.png"> | <img width="290" src="./etc/asset/after.png"> |
 
+---
+
 ### 3.7. 나레이션 생성 🎙️
 
 생성한 시나리오의 **dialogue**을 바탕으로 나레이션을 생성합니다.
 
 <img width="600" src="./etc/asset/speech.png">
 
+---
+
 ### 3.8. 숏폼 생성 📹 
 
 위에서 도출한 이미지 배열과 나레이션을 합쳐 숏폼 영상을 생성합니다.
 
 <img width="600" src="./etc/asset/create_video.png">
+
+</br>
 
 ## 4. 팀 구성 🧑🏻
 
@@ -119,6 +146,8 @@ BeautifulSoup4 라이브러리를 활용해 각 언론사별 크롤러를 구현
 | 박근석 | 박상후 | 박찬규 |
 | :---: | :---: | :---: |
 | <a href="https://github.com/parkrootseok"><img src="https://avatars.githubusercontent.com/parkrootseok" width=160/></a> | <a href="https://github.com/SangHuPark"><img src="https://avatars.githubusercontent.com/SangHuPark" width=160/></a> | <a href="https://github.com/pcg0610"><img src="https://avatars.githubusercontent.com/pcg0610" width=160/></a> | |[parkrootseok](https://github.com/parkrootseok) | [SangHuPark](https://github.com/SangHuPark) | [pcg0610](https://github.com/pcg0610) |
+
+</br>
 
 ## 5. 사용 기술 ⚒️
 
@@ -153,6 +182,8 @@ BeautifulSoup4 라이브러리를 활용해 각 언론사별 크롤러를 구현
 |  |  |
 | :--- | :--- |
 | Collaboration | <img src="https://img.shields.io/badge/jira-0052CC?style=for-the-badge&logo=jira&logoColor=white" alt="Notion"/> <img src="https://img.shields.io/badge/notion-000000?style=for-the-badge&logo=notion&logoColor=white" alt="Notion"/> <img src="https://img.shields.io/badge/swagger-85EA2D?style=for-the-badge&logo=swagger&logoColor=white" alt="Swagger"/> <img src="https://img.shields.io/badge/figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white" alt="Figma"/> |
+
+</br>
 
 ## 6. 산출물 📚
 |  |  |
