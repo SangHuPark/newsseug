@@ -1,152 +1,179 @@
 CREATE DATABASE IF NOT EXISTS newsseug;
 USE newsseug;
 
--- Create the sequences
-CREATE SEQUENCE IF NOT EXISTS members_seq START WITH 1 INCREMENT BY 1;
-CREATE SEQUENCE IF NOT EXISTS folders_seq START WITH 1 INCREMENT BY 1;
-CREATE SEQUENCE IF NOT EXISTS press_seq START WITH 1 INCREMENT BY 1;
-CREATE SEQUENCE IF NOT EXISTS articles_seq START WITH 1 INCREMENT BY 1;
-CREATE SEQUENCE IF NOT EXISTS bookmarks_seq START WITH 1 INCREMENT BY 1;
-CREATE SEQUENCE IF NOT EXISTS histories_seq START WITH 1 INCREMENT BY 1;
-CREATE SEQUENCE IF NOT EXISTS likes_seq START WITH 1 INCREMENT BY 1;
-CREATE SEQUENCE IF NOT EXISTS hates_seq START WITH 1 INCREMENT BY 1;
-CREATE SEQUENCE IF NOT EXISTS reports_seq START WITH 1 INCREMENT BY 1;
-CREATE SEQUENCE IF NOT EXISTS subscribes_seq START WITH 1 INCREMENT BY 1;
-CREATE SEQUENCE IF NOT EXISTS birth_year_view_counts_seq START WITH 1 INCREMENT BY 1;
-
--- Create tables
-CREATE TABLE IF NOT EXISTS members (
-    member_id         BIGINT PRIMARY KEY DEFAULT nextval(members_seq),
-    birth             DATE NULL,
-    nickname          VARCHAR(255) NULL,
-    profile_image_url VARCHAR(255) NULL,
-    is_first          BIT(1) NOT NULL DEFAULT TRUE,
-    provider_id       VARCHAR(255) NOT NULL,
-    gender            ENUM ('FEMALE', 'MALE') NULL,
-    provider          ENUM ('GOOGLE', 'KAKAO') NOT NULL,
-    role              ENUM ('ROLE_ADMIN', 'ROLE_MEMBER') NULL,
-    activation_status ENUM ('ACTIVE', 'INACTIVE')  NOT NULL DEFAULT 'ACTIVE',
-    created_at        TIMESTAMP  NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    updated_at        TIMESTAMP  NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    CONSTRAINT UKilvrhdmws4av314ebhvn26im5 UNIQUE (provider_id)
+create table if not exists newsseug.members
+(
+    member_id         bigint auto_increment
+        primary key,
+    activation_status enum ('ACTIVE', 'INACTIVE')        not null,
+    created_at        timestamp                          not null,
+    updated_at        timestamp                          not null,
+    birth             date                               null,
+    gender            enum ('FEMALE', 'MALE')            null,
+    is_first          bit                                null,
+    nickname          varchar(255)                       null,
+    provider          enum ('GOOGLE', 'KAKAO')           not null,
+    provider_id       varchar(255)                       not null,
+    role              enum ('ROLE_ADMIN', 'ROLE_MEMBER') null,
+    profile_image_url varchar(255)                       null,
+    constraint UKilvrhdmws4av314ebhvn26im5
+        unique (provider_id)
 );
 
-CREATE TABLE IF NOT EXISTS folders (
-    folder_id         BIGINT PRIMARY KEY DEFAULT nextval(folders_seq),
-    member_id         BIGINT  NOT NULL,
-    article_count     BIGINT NULL,
-    thumbnail_url     VARCHAR(255) NULL,
-    title             VARCHAR(10)  NOT NULL,
-    activation_status ENUM ('ACTIVE', 'INACTIVE')  NOT NULL DEFAULT 'ACTIVE',
-    created_at        TIMESTAMP  NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    updated_at        TIMESTAMP  NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    CONSTRAINT FKco4xraxvdqyci1h0bfgnvq1yf FOREIGN KEY (member_id) REFERENCES members (member_id) ON DELETE CASCADE
+create table if not exists newsseug.folders
+(
+    folder_id         bigint auto_increment
+        primary key,
+    activation_status enum ('ACTIVE', 'INACTIVE') not null,
+    created_at        timestamp                   not null,
+    updated_at        timestamp                   not null,
+    article_count     bigint                      null,
+    thumbnail_url     varchar(255)                null,
+    title             varchar(10)                 not null,
+    member_id         bigint                      not null,
+    constraint FKco4xraxvdqyci1h0bfgnvq1yf
+        foreign key (member_id) references newsseug.members (member_id)
 );
 
-CREATE TABLE IF NOT EXISTS press (
-    press_id          BIGINT PRIMARY KEY DEFAULT nextval(press_seq),
-    subscribe_count   BIGINT NULL DEFAULT 0,
-    description       VARCHAR(255) NULL,
-    image_url         VARCHAR(255) NULL,
-    name              VARCHAR(255) NULL,
-    activation_status ENUM ('ACTIVE', 'INACTIVE')  NOT NULL DEFAULT 'ACTIVE',
-    created_at        TIMESTAMP  NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    updated_at        TIMESTAMP  NOT NULL DEFAULT CURRENT_TIMESTAMP
+create table if not exists newsseug.press
+(
+    press_id        bigint auto_increment
+        primary key,
+    description     varchar(255) null,
+    image_url       varchar(255) null,
+    name            varchar(255) null,
+    subscribe_count bigint       null
 );
 
-CREATE TABLE IF NOT EXISTS articles (
-    article_id        BIGINT PRIMARY KEY DEFAULT nextval(articles_seq),
-    press_id          BIGINT  NOT NULL,
-    hate_count        BIGINT  NOT NULL DEFAULT 0,
-    like_count        BIGINT  NOT NULL DEFAULT 0,
-    source_created_at TIMESTAMP NULL,
-    view_count        BIGINT  NOT NULL DEFAULT 0,
-    content_url       VARCHAR(255) NULL,
-    source_url        VARCHAR(255)  NOT NULL,
-    thumbnail_url     VARCHAR(255) NULL,
-    title             VARCHAR(255)  NOT NULL,
-    video_url         VARCHAR(255) NULL,
-    category          ENUM ('ACCIDENT', 'ECONOMY', 'POLITICS', 'SCIENCE', 'SOCIETY', 'SPORTS', 'WORLD')  NOT NULL,
-    conversion_status ENUM ('EXCEED_TOKEN', 'FILTERED', 'RUNNING', 'SUCCESS', 'UNKNOWN_FAIL')  NOT NULL,
-    activation_status ENUM ('ACTIVE', 'INACTIVE')  NOT NULL DEFAULT 'ACTIVE',
-    created_at        TIMESTAMP  NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    updated_at        TIMESTAMP  NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    CONSTRAINT FKd04v02rcdg3lmlu45mw9vfomc FOREIGN KEY (press_id) REFERENCES press (press_id) ON DELETE CASCADE
+create table if not exists newsseug.articles
+(
+    article_id        bigint auto_increment
+        primary key,
+    activation_status enum ('ACTIVE', 'INACTIVE')                                                       not null,
+    created_at        timestamp                                                                         not null,
+    updated_at        timestamp                                                                         not null,
+    category          enum ('ACCIDENT', 'ECONOMY', 'POLITICS', 'SCIENCE', 'SOCIETY', 'SPORTS', 'WORLD') not null,
+    content_url       varchar(255)                                                                      null,
+    conversion_status enum ('EXCEED_TOKEN', 'FILTERED', 'RUNNING', 'SUCCESS', 'UNKNOWN_FAIL')           not null,
+    hate_count        bigint                                                                            not null,
+    like_count        bigint                                                                            not null,
+    source_created_at timestamp                                                                         null,
+    source_url        varchar(255)                                                                      not null,
+    thumbnail_url     varchar(255)                                                                      null,
+    title             varchar(255)                                                                      not null,
+    video_url         varchar(255)                                                                      null,
+    view_count        bigint                                                                            not null,
+    press_id          bigint                                                                            not null,
+    constraint FKd04v02rcdg3lmlu45mw9vfomc
+        foreign key (press_id) references newsseug.press (press_id)
 );
 
-CREATE TABLE IF NOT EXISTS bookmarks (
-    bookmark_id       BIGINT PRIMARY KEY DEFAULT nextval(bookmarks_seq),
-    folder_id         BIGINT  NOT NULL,
-    article_id        BIGINT  NOT NULL,
-    activation_status ENUM ('ACTIVE', 'INACTIVE')  NOT NULL DEFAULT 'ACTIVE',
-    created_at        TIMESTAMP  NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    updated_at        TIMESTAMP  NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    CONSTRAINT uniqueBookmark UNIQUE (article_id, folder_id),
-    CONSTRAINT FKgw1od0yvy1n3r2p0r4cb7x57a FOREIGN KEY (folder_id) REFERENCES folders (folder_id) ON DELETE CASCADE,
-    CONSTRAINT FKrgc71ng0qy59rn9y741gi2mjr FOREIGN KEY (article_id) REFERENCES articles (article_id) ON DELETE CASCADE
+create index idx_category_press_created_at_desc
+    on newsseug.articles (category, activation_status, conversion_status, source_created_at desc);
+
+create index idx_created_at_desc
+    on newsseug.articles (activation_status, conversion_status, source_created_at desc);
+
+create table if not exists newsseug.birth_year_view_counts
+(
+    birth_view_count_id bigint auto_increment
+        primary key,
+    birth_year          int    null,
+    view_count          bigint not null,
+    article_id          bigint not null,
+    constraint FK4hy7ruduqtt8ugpj8hx5ajrpc
+        foreign key (article_id) references newsseug.articles (article_id)
 );
 
-CREATE TABLE IF NOT EXISTS histories (
-    history_id        BIGINT PRIMARY KEY DEFAULT nextval(histories_seq),
-    member_id         BIGINT  NOT NULL,
-    article_id        BIGINT  NOT NULL,
-    play_time         INT  NOT NULL,
-    activation_status ENUM ('ACTIVE', 'INACTIVE')  NOT NULL DEFAULT 'ACTIVE',
-    created_at        TIMESTAMP  NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    updated_at        TIMESTAMP  NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    CONSTRAINT uniqueBookmark UNIQUE (member_id, article_id),
-    CONSTRAINT FKr5eq32k17h6xd5u1ridpahnlg FOREIGN KEY (member_id) REFERENCES members (member_id) ON DELETE CASCADE,
-    CONSTRAINT FK6dwu9pkt9gecpbk3r8u4oqk7n FOREIGN KEY (article_id) REFERENCES articles (article_id) ON DELETE CASCADE
+create table if not exists newsseug.bookmarks
+(
+    bookmark_id       bigint auto_increment
+        primary key,
+    activation_status enum ('ACTIVE', 'INACTIVE') not null,
+    created_at        timestamp                   not null,
+    updated_at        timestamp                   not null,
+    article_id        bigint                      not null,
+    folder_id         bigint                      not null,
+    constraint uniqueBookmark
+        unique (article_id, folder_id),
+    constraint FKgw1od0yvy1n3r2p0r4cb7x57a
+        foreign key (folder_id) references newsseug.folders (folder_id),
+    constraint FKrgc71ng0qy59rn9y741gi2mjr
+        foreign key (article_id) references newsseug.articles (article_id)
 );
 
-CREATE TABLE IF NOT EXISTS likes (
-    like_id           BIGINT PRIMARY KEY DEFAULT nextval(likes_seq),
-    member_id         BIGINT  NOT NULL,
-    article_id        BIGINT  NOT NULL,
-    activation_status ENUM ('ACTIVE', 'INACTIVE')  NOT NULL DEFAULT 'ACTIVE',
-    created_at        TIMESTAMP  NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    updated_at        TIMESTAMP  NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    CONSTRAINT FK166rh7nhmtcajf0xo1f1i3s8p FOREIGN KEY (member_id) REFERENCES members (member_id) ON DELETE CASCADE,
-    CONSTRAINT FKic6sfk54mitq78b48367cfiet FOREIGN KEY (article_id) REFERENCES articles (article_id) ON DELETE CASCADE
+create table if not exists newsseug.hates
+(
+    hate_id    bigint auto_increment
+        primary key,
+    created_at timestamp not null,
+    article_id bigint    not null,
+    member_id  bigint    not null,
+    constraint unique_member_article
+        unique (member_id, article_id),
+    constraint FKeu114uu249552fnxpjoesei59
+        foreign key (member_id) references newsseug.members (member_id),
+    constraint FKp1hq7yrqfyhean2q5gj53i4em
+        foreign key (article_id) references newsseug.articles (article_id)
 );
 
-CREATE TABLE IF NOT EXISTS hates (
-    hate_id           BIGINT PRIMARY KEY DEFAULT nextval(hates_seq),
-    member_id         BIGINT  NOT NULL,
-    article_id        BIGINT  NOT NULL,
-    activation_status ENUM ('ACTIVE', 'INACTIVE')  NOT NULL DEFAULT 'ACTIVE',
-    created_at        TIMESTAMP  NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    updated_at        TIMESTAMP  NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    CONSTRAINT FKeu114uu249552fnxpjoesei59 FOREIGN KEY (member_id) REFERENCES members (member_id) ON DELETE CASCADE,
-    CONSTRAINT FKp1hq7yrqfyhean2q5gj53i4em FOREIGN KEY (article_id) REFERENCES articles (article_id) ON DELETE CASCADE
+create table if not exists newsseug.histories
+(
+    history_id        bigint auto_increment
+        primary key,
+    activation_status enum ('ACTIVE', 'INACTIVE') not null,
+    created_at        timestamp                   not null,
+    updated_at        timestamp                   not null,
+    play_time         int                         not null,
+    article_id        bigint                      not null,
+    member_id         bigint                      not null,
+    constraint unique_member_article
+        unique (member_id, article_id),
+    constraint FK6dwu9pkt9gecpbk3r8u4oqk7n
+        foreign key (article_id) references newsseug.articles (article_id),
+    constraint FKr5eq32k17h6xd5u1ridpahnlg
+        foreign key (member_id) references newsseug.members (member_id)
 );
 
-CREATE TABLE IF NOT EXISTS reports (
-    report_id         BIGINT PRIMARY KEY DEFAULT nextval(reports_seq),
-    article_id        BIGINT  NOT NULL,
-    type              ENUM ('DISLIKE', 'EXPLICIT_CONTENT', 'HATE_SPEECH_OR_SYMBOLS', 'MISINFORMATION', 'SPAM')  NOT NULL,
-    activation_status ENUM ('ACTIVE', 'INACTIVE')  NOT NULL DEFAULT 'ACTIVE',
-    created_at        TIMESTAMP  NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    updated_at        TIMESTAMP  NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    CONSTRAINT FKvd08qavn9nwy8fa6n5349tb7 FOREIGN KEY (article_id) REFERENCES articles (article_id) ON DELETE CASCADE
+create table if not exists newsseug.likes
+(
+    like_id    bigint auto_increment
+        primary key,
+    created_at timestamp not null,
+    article_id bigint    not null,
+    member_id  bigint    not null,
+    constraint unique_member_aticle
+        unique (member_id, article_id),
+    constraint FK166rh7nhmtcajf0xo1f1i3s8p
+        foreign key (member_id) references newsseug.members (member_id),
+    constraint FKic6sfk54mitq78b48367cfiet
+        foreign key (article_id) references newsseug.articles (article_id)
 );
 
-CREATE TABLE IF NOT EXISTS subscribes (
-    subscribe_id      BIGINT PRIMARY KEY DEFAULT nextval(subscribes_seq),
-    member_id         BIGINT NULL,
-    press_id          BIGINT NULL,
-    activation_status ENUM ('ACTIVE', 'INACTIVE')  NOT NULL DEFAULT 'ACTIVE',
-    created_at        TIMESTAMP  NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    updated_at        TIMESTAMP  NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    CONSTRAINT uniqueSubscribe UNIQUE (member_id, press_id),
-    CONSTRAINT FK1ll7f1tjs7lt3xiqfcbrfmdum FOREIGN KEY (member_id) REFERENCES members (member_id) ON DELETE CASCADE,
-    CONSTRAINT FKj3n9k136ixactnmfdhflm2i4n FOREIGN KEY (press_id) REFERENCES press (press_id) ON DELETE CASCADE
+create table if not exists newsseug.reports
+(
+    report_id  bigint auto_increment
+        primary key,
+    created_at timestamp                                                                                not null,
+    type       enum ('DISLIKE', 'EXPLICIT_CONTENT', 'HATE_SPEECH_OR_SYMBOLS', 'MISINFORMATION', 'SPAM') not null,
+    article_id bigint                                                                                   not null,
+    constraint FKvd08qavn9nwy8fa6n5349tb7
+        foreign key (article_id) references newsseug.articles (article_id)
 );
 
-CREATE TABLE IF NOT EXISTS birth_year_view_counts (
-    birth_view_count_id BIGINT PRIMARY KEY DEFAULT nextval(birth_year_view_counts_seq),
-    article_id          BIGINT NOT NULL,
-    birth_year          INT    NULL,
-    view_count          BIGINT NOT NULL DEFAULT 0,
-    CONSTRAINT FK4hy7ruduqtt8ugpj8hx5ajrpc FOREIGN KEY (article_id) REFERENCES articles (article_id)
+create table if not exists newsseug.subscribes
+(
+    subscribe_id      bigint auto_increment
+        primary key,
+    activation_status enum ('ACTIVE', 'INACTIVE') not null,
+    created_at        timestamp                   not null,
+    updated_at        timestamp                   not null,
+    member_id         bigint                      null,
+    press_id          bigint                      null,
+    constraint uniqueSubscribe
+        unique (member_id, press_id),
+    constraint FK1ll7f1tjs7lt3xiqfcbrfmdum
+        foreign key (member_id) references newsseug.members (member_id),
+    constraint FKj3n9k136ixactnmfdhflm2i4n
+        foreign key (press_id) references newsseug.press (press_id)
 );

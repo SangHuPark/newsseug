@@ -1,0 +1,25 @@
+services:
+
+  mysql:
+    image: mysql:8.3.0
+    container_name: mysql
+    ports:
+      - 3306:3306
+    environment:
+      TZ: Asia/Seoul
+      MYSQL_DATABASE: newsseug
+      MYSQL_ROOT_PASSWORD: 1234
+    networks:
+      - local-bridge
+
+  redis:
+    image: redis:latest
+    container_name: redis
+    ports:
+      - 6379:6379
+    networks:
+      - local-bridge
+
+networks:
+  local-bridge:
+    driver: bridge
