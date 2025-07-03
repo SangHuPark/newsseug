@@ -1,4 +1,16 @@
 # 📰 뉴스를 한눈에, "뉴쓱"
+
+<table>
+  <tr>
+    <td><strong>시작일</strong></td>
+    <td>2024.08.19 (월)</td>
+  </tr>
+  <tr>
+    <td><strong>종료일</strong></td>
+    <td>2024.10.11 (금)</td>
+  </tr>
+</table>
+
 </br>
 
 ## 1. 소개 📌
