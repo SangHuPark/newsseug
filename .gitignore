@@ -1,0 +1,16 @@
+# IDE 설정
+.idea/
+*.iml
+
+# OS
+.DS_Store
+
+# Build
+build/
+dist/
+
+# Node
+node_modules/
+
+# Spring
+out/
