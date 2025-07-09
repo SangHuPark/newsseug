@@ -85,7 +85,7 @@
 
 ### 3.1. 숏폼 생성 과정 💡
 
-<img width="600" src="./etc/asset/functional-flow-chart.png">
+<img width="600" src="./etc/asset/shortform-creating-process.png">
 
 ---
 
