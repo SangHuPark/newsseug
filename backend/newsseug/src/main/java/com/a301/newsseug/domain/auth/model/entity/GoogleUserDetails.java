@@ -5,7 +5,7 @@ import java.util.Map;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-    @Getter
+@Getter
 @AllArgsConstructor
 public class GoogleUserDetails implements OAuth2UserDetails {
 
