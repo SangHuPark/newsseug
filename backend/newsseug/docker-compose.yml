@@ -2,24 +2,24 @@ services:
 
   mysql:
     image: mysql:8.3.0
-    container_name: mysql
+    container_name: newsseug-mysql
     ports:
-      - 3306:3306
+      - "3308:3306"
     environment:
+      MYSQL_ROOT_PASSWORD: 1234
       TZ: Asia/Seoul
       MYSQL_DATABASE: newsseug
-      MYSQL_ROOT_PASSWORD: 1234
     networks:
-      - local-bridge
+      - newsseug-net
 
   redis:
     image: redis:latest
-    container_name: redis
+    container_name: newsseug-redis
     ports:
-      - 6379:6379
+      - "6377:6379"
     networks:
-      - local-bridge
+      - newsseug-net
 
 networks:
-  local-bridge:
+  newsseug-net:
     driver: bridge

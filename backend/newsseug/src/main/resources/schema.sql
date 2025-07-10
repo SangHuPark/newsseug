@@ -1,6 +1,30 @@
 CREATE DATABASE IF NOT EXISTS newsseug;
 USE newsseug;
 
+-- 기존 테이블 제거
+--DROP TABLE IF EXISTS subscribes;
+--DROP TABLE IF EXISTS subscribes_seq;
+--DROP TABLE IF EXISTS reports;
+--DROP TABLE IF EXISTS reports_seq;
+--DROP TABLE IF EXISTS likes;
+--DROP TABLE IF EXISTS likes_seq;
+--DROP TABLE IF EXISTS histories;
+--DROP TABLE IF EXISTS histories_seq;
+--DROP TABLE IF EXISTS hates;
+--DROP TABLE IF EXISTS hates_seq;
+--DROP TABLE IF EXISTS bookmarks;
+--DROP TABLE IF EXISTS bookmarks_seq;
+--DROP TABLE IF EXISTS birth_year_view_counts;
+--DROP TABLE IF EXISTS birth_year_view_counts_seq;
+--DROP TABLE IF EXISTS articles;
+--DROP TABLE IF EXISTS articles_seq;
+--DROP TABLE IF EXISTS folders;
+--DROP TABLE IF EXISTS folders_seq;
+--DROP TABLE IF EXISTS members;
+--DROP TABLE IF EXISTS members_seq;
+--DROP TABLE IF EXISTS press;
+--DROP TABLE IF EXISTS press_seq;
+
 create table if not exists newsseug.members
 (
     member_id         bigint auto_increment
@@ -68,11 +92,11 @@ create table if not exists newsseug.articles
         foreign key (press_id) references newsseug.press (press_id)
 );
 
-create index idx_category_press_created_at_desc
-    on newsseug.articles (category, activation_status, conversion_status, source_created_at desc);
-
-create index idx_created_at_desc
-    on newsseug.articles (activation_status, conversion_status, source_created_at desc);
+--create index idx_category_press_created_at_desc
+--    on newsseug.articles (category, activation_status, conversion_status, source_created_at desc);
+--
+--create index idx_created_at_desc
+--    on newsseug.articles (activation_status, conversion_status, source_created_at desc);
 
 create table if not exists newsseug.birth_year_view_counts
 (
