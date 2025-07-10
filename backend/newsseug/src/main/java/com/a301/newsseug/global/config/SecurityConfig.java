@@ -35,12 +35,12 @@ public class SecurityConfig {
     };
 
     private final JwtService jwtService;
-    private final CustomOAuth2UserService oAuth2UserService;
+//    private final CustomOAuth2UserService oAuth2UserService;
     private final CustomUserDetailsService userDetailsService;
-    private final CorsConfigurationSource corsConfigurationSource;
+//    private final CorsConfigurationSource corsConfigurationSource;
     private final JwtAccessDeniedHandler accessDeniedHandler;
     private final JwtAuthenticationEntryPoint authenticationEntryPoint;
-    private final OAuth2AuthenticationSuccessHandler oAuth2AuthenticationSuccessHandler;
+//    private final OAuth2AuthenticationSuccessHandler oAuth2AuthenticationSuccessHandler;
 
     @Bean
     public SecurityFilterChain configure(HttpSecurity http) throws Exception {
@@ -53,7 +53,7 @@ public class SecurityConfig {
 
                 .csrf(AbstractHttpConfigurer::disable)
 
-                .cors(cors -> cors.configurationSource(corsConfigurationSource))
+//                .cors(cors -> cors.configurationSource(corsConfigurationSource))
 
                 .headers(header ->
                         header.frameOptions(
@@ -86,6 +86,7 @@ public class SecurityConfig {
 
                 )
 
+/*
                 .oauth2Login(
                         configurer ->
                                 configurer
@@ -95,6 +96,7 @@ public class SecurityConfig {
                                         )
                                         .successHandler(oAuth2AuthenticationSuccessHandler)
                 )
+*/
 
                 .addFilterBefore(new AuthorizationFilter(jwtService, userDetailsService), UsernamePasswordAuthenticationFilter.class)
 
