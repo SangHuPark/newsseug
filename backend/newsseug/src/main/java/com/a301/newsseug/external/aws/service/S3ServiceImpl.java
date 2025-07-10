@@ -12,7 +12,7 @@ import software.amazon.awssdk.services.s3.presigner.S3Presigner;
 import software.amazon.awssdk.services.s3.presigner.model.PutObjectPresignRequest;
 
 @Slf4j
-@Service
+//@Service
 @RequiredArgsConstructor
 public class S3ServiceImpl implements S3Service {
 

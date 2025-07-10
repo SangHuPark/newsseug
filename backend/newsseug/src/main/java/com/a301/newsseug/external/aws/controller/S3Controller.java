@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @Tag(name = "S3 API")
-@RestController
+//@RestController
 @RequestMapping("/api/v1/s3")
 @RequiredArgsConstructor
 public class S3Controller {
