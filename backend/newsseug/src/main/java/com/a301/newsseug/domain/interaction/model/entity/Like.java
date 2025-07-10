@@ -19,8 +19,7 @@ import java.time.LocalDateTime;
 public class Like {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "likes_seq")
-    @SequenceGenerator(name = "likes_seq", sequenceName = "likes_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long likeId;
 
     @ManyToOne(fetch = FetchType.LAZY)

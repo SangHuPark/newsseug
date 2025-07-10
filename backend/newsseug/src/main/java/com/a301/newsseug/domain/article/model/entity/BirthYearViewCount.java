@@ -13,8 +13,7 @@ import lombok.NoArgsConstructor;
 public class BirthYearViewCount {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "birth_year_view_counts_seq")
-    @SequenceGenerator(name = "birth_year_view_counts_seq", sequenceName = "birth_year_view_counts_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long birthViewCountId;
 
     @Column

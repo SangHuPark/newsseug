@@ -19,8 +19,7 @@ import java.time.LocalDateTime;
 public class Hate {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "hates_seq")
-    @SequenceGenerator(name = "hates_seq", sequenceName = "hates_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long hateId;
 
     @ManyToOne(fetch = FetchType.LAZY)

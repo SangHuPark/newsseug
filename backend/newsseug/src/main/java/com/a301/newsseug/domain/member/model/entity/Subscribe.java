@@ -33,8 +33,7 @@ import lombok.NoArgsConstructor;
 public class Subscribe extends BaseEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "subscribes_seq")
-    @SequenceGenerator(name = "subscribes_seq", sequenceName = "subscribes_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long subscribeId;
 
     @ManyToOne(fetch = FetchType.LAZY)

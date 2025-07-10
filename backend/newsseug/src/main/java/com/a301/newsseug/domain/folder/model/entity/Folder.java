@@ -25,8 +25,7 @@ import lombok.Setter;
 public class Folder extends BaseEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "folders_seq")
-    @SequenceGenerator(name = "folders_seq", sequenceName = "folders_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long folderId;
 
     @ManyToOne(fetch = FetchType.LAZY)

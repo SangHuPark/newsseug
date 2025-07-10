@@ -32,8 +32,7 @@ import lombok.NoArgsConstructor;
 public class Bookmark extends BaseEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "bookmarks_seq")
-    @SequenceGenerator(name = "bookmarks_seq", sequenceName = "bookmarks_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long bookmarkId;
 
     @ManyToOne
