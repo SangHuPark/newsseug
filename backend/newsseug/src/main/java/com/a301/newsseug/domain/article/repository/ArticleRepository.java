@@ -17,8 +17,8 @@ import java.util.Optional;
 @Repository
 public interface ArticleRepository extends JpaRepository<Article, Long>, ArticleCustomRepository {
 
-    default Article getOrThrow(Long id) {
-        return findByArticleIdAndConversionStatus(id, ConversionStatus.SUCCESS)
+    default Article getOrThrow(Long articleId) {
+        return findByArticleIdAndActivationStatusAndConversionStatus(articleId, ActivationStatus.ACTIVE, ConversionStatus.SUCCESS)
                 .orElseThrow(NotExistArticleException::new);
     }
 
@@ -48,7 +48,7 @@ public interface ArticleRepository extends JpaRepository<Article, Long>, Article
             Pageable pageable
     );
 
-    Optional<Article> findByArticleIdAndConversionStatus(Long id, ConversionStatus conversionStatus);
+    Optional<Article> findByArticleIdAndActivationStatusAndConversionStatus(Long articleId, ActivationStatus activationStatus, ConversionStatus conversionStatus);
 
     @Query("SELECT a "
             + "FROM Article a "
