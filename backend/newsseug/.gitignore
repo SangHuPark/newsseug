@@ -46,6 +46,7 @@ out/
 
 # QueryDSL, annotation processor 등 생성 파일 포함 시
 **/build/generated/
+Q**.java
 
 # Log & Dump
 *.log
