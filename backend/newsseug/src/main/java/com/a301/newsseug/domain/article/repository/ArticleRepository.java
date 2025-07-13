@@ -7,6 +7,7 @@ import com.a301.newsseug.domain.article.model.entity.type.ConversionStatus;
 import com.a301.newsseug.global.model.entity.ActivationStatus;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -21,6 +22,10 @@ public interface ArticleRepository extends JpaRepository<Article, Long>, Article
         return findByArticleIdAndActivationStatusAndConversionStatus(articleId, ActivationStatus.ACTIVE, ConversionStatus.SUCCESS)
                 .orElseThrow(NotExistArticleException::new);
     }
+
+    // EntityGraph: 필요한 연관관계만 한 번의 SQL 로 미리 가져옴
+    @EntityGraph(attributePaths = {"press"})
+    Optional<Article> findByArticleIdAndActivationStatusAndConversionStatus(Long articleId, ActivationStatus activationStatus, ConversionStatus conversionStatus);
 
     @Query(value = "SELECT a "
             + "FROM Article a "
@@ -47,8 +52,6 @@ public interface ArticleRepository extends JpaRepository<Article, Long>, Article
             @Param("conversionStatus") ConversionStatus conversionStatus,
             Pageable pageable
     );
-
-    Optional<Article> findByArticleIdAndActivationStatusAndConversionStatus(Long articleId, ActivationStatus activationStatus, ConversionStatus conversionStatus);
 
     @Query("SELECT a "
             + "FROM Article a "
