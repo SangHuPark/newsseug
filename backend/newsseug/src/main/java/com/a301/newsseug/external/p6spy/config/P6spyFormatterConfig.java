@@ -12,6 +12,7 @@ import org.springframework.util.StringUtils;
 @Component
 public class P6spyFormatterConfig extends JdbcEventListener implements MessageFormattingStrategy {
 
+    // spy.properties 에 logMessageFormat=com.a301.newsseug.external.p6spy.config.P6spyFormatterConfig 를 작성한 것과 같은 효과
     @Override
     public void onAfterGetConnection(ConnectionInformation connectionInformation, SQLException e) {
         P6SpyOptions.getActiveInstance().setLogMessageFormat(this.getClass().getName());
