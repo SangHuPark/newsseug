@@ -68,5 +68,7 @@ public class Article extends BaseEntity {
         this.likeCount = 0L;
         this.hateCount = 0L;
         this.category = category;
+        this.active();
+        this.conversionStatus = ConversionStatus.SUCCESS;
     }
 }
