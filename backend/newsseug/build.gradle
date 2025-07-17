@@ -44,6 +44,7 @@ dependencies {
      * - OAuth2
      * - Actuator
      * - Openfeign
+     * - Caffeine
      */
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     implementation 'org.springframework.boot:spring-boot-starter-web'
@@ -52,6 +53,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'org.springframework.cloud:spring-cloud-starter-openfeign:4.1.3'
+    implementation 'com.github.ben-manes.caffeine:caffeine:3.1.8'
 
 
     /**
