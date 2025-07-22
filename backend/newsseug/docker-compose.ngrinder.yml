@@ -1,0 +1,27 @@
+services:
+
+  ngrinder-controller:
+    image: ngrinder/controller:3.5.5
+    platform: linux/amd64
+    container_name: ngrinder-controller
+    ports:
+      - "80:80"
+    volumes:
+      - ngrinder-controller-volume:/opt/ngrinder-controller
+    networks:
+      - newsseug_newsseug-net
+
+  ngrinder-agent:
+    image: ngrinder/agent:3.5.5
+    platform: linux/amd64
+    container_name: ngrinder-agent
+    command: ["ngrinder-controller:80"]
+    networks:
+      - newsseug_newsseug-net
+
+volumes:
+  ngrinder-controller-volume:
+
+networks:
+  newsseug_newsseug-net:
+    external: true  # 이미 사용 중인 네트워크를 사용
