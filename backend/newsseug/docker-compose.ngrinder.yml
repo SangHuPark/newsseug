@@ -16,6 +16,8 @@ services:
     platform: linux/amd64
     container_name: ngrinder-agent
     command: ["ngrinder-controller:80"]
+    environment:
+      - HOST=host.docker.internal
     networks:
       - newsseug_newsseug-net
 
