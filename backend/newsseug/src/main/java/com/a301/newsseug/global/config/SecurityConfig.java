@@ -68,7 +68,8 @@ public class SecurityConfig {
                         requestConfigurer
 
                                 .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
-                                .requestMatchers("/newsseug/**").permitAll()
+//                                .requestMatchers("/newsseug/**").permitAll()
+                                .requestMatchers("/actuator/**").permitAll()
                                 .requestMatchers(SWAGGER_URI).permitAll()
 
                                 .requestMatchers("/api/v1/members/**").hasRole(ROLE_MEMBER.getRole())
