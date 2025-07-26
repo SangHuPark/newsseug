@@ -16,6 +16,7 @@ import com.a301.newsseug.domain.member.model.entity.Member;
 import com.a301.newsseug.domain.member.model.entity.Subscribe;
 import com.a301.newsseug.domain.member.service.SubscribeService;
 import com.a301.newsseug.domain.press.repository.PressRepository;
+import com.a301.newsseug.external.caffeine.manager.ArticleCacheManager;
 import com.a301.newsseug.global.model.dto.SlicedResponse;
 import com.a301.newsseug.global.model.entity.ActivationStatus;
 import com.a301.newsseug.global.model.entity.SliceDetails;
@@ -47,11 +48,16 @@ public class ArticleServiceImpl implements ArticleService {
     private final LikeRepository likeRepository;
     private final HateRepository hateRepository;
 
-    @Override
-    public GetArticleDetailsResponse getArticleDetail(CustomUserDetails userDetails,
-            Long articleId) {
+    private final ArticleCacheManager articleCacheManager;
 
-        Article article = articleRepository.getOrThrow(articleId);
+    @Override
+    public GetArticleDetailsResponse getArticleDetail(
+            CustomUserDetails userDetails, Long articleId)
+    {
+
+//        Article article = articleRepository.getOrThrow(articleId);
+        Article article = articleCacheManager.getCached(articleId);
+
         Long incrementedViewCount = redisCounterService.increment("article:viewCount:", articleId,
                 1L);
         Long likeCount = redisCounterService.findByKey("article:likeCount:", articleId).orElse(0L);
