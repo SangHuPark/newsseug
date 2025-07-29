@@ -53,7 +53,7 @@ public class JwtServiceTest {
     private JwtProperties.Expiration expiration;
 
     @Mock
-    private RedisTokenService redisTokenService;
+    private RedisTokenRepository redisTokenService;
 
     @InjectMocks
     private JwtServiceImpl jwtService;

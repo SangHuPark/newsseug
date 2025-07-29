@@ -1,6 +1,6 @@
 package com.a301.newsseug.external.jwt.service;
 
-import static org.apache.http.HttpHeaders.AUTHORIZATION;
+import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 
 import com.a301.newsseug.external.jwt.config.JwtProperties;
 import com.a301.newsseug.external.jwt.exception.ExpiredTokenException;
@@ -35,7 +35,7 @@ public class JwtServiceImpl implements JwtService {
     private static final String TOKEN_PREFIX = "Bearer ";
 
     private final JwtProperties jwtProperties;
-    private final RedisTokenService redisTokenService;
+    private final RedisTokenRepository redisTokenService;
 
     @Override
     public String issueToken(String providerId, TokenType type) {
