@@ -11,13 +11,12 @@ import com.a301.newsseug.global.model.entity.ActivationStatus;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.Order;
 import com.querydsl.core.types.OrderSpecifier;
-import com.querydsl.core.types.dsl.BooleanExpression;
-import com.querydsl.core.types.dsl.Expressions;
-import com.querydsl.core.types.dsl.PathBuilder;
+import com.querydsl.core.types.dsl.*;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.function.Function;
 import lombok.RequiredArgsConstructor;
@@ -102,11 +101,25 @@ public class ArticleCustomRepositoryImpl implements ArticleCustomRepository {
     @Override
     @Modifying
     @Transactional
-    public void updateCount(String field, Long id, Long count) {
+    public void updateCount(String field, Map<String, Long> countingLog) {
         PathBuilder<Long> fieldPath = new PathBuilder<>(Long.class, "article." + field);
+        CaseBuilder caseBuilder = new CaseBuilder();
+        CaseBuilder.Cases<Long, NumberExpression<Long>> caseExpression = null;
+
+        for (Map.Entry<String, Long> entry : countingLog.entrySet()) {
+            Long id = Long.parseLong(entry.getKey());
+            Long count = entry.getValue();
+            if (caseExpression == null) {
+                caseExpression = caseBuilder.when(article.articleId.eq(id)).then(count);
+            } else {
+                caseExpression = caseExpression.when(article.articleId.eq(id)).then(count);
+            }
+        }
+        NumberExpression<Long> finalExpression = caseExpression.otherwise(0L);
+
         jpaQueryFactory.update(article)
-                .set(fieldPath,  Expressions.numberTemplate(Long.class, "{0} + {1}", fieldPath, count))
-                .where(article.articleId.eq(id))
+                .set(fieldPath, Expressions.numberTemplate(Long.class, "{0} + {1}", fieldPath, finalExpression))
+                .where(article.articleId.in(countingLog.keySet().stream().map(Long::parseLong).toList()))
                 .execute();
     }
 
