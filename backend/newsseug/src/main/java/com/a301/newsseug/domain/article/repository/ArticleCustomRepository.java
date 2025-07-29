@@ -7,6 +7,7 @@ import org.springframework.data.domain.Slice;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 public interface ArticleCustomRepository {
 
@@ -22,6 +23,6 @@ public interface ArticleCustomRepository {
 
     Slice<Article> findAllByBirthYearOrderByViewCount(Integer ageBegin, Integer ageEnd, String category, Pageable pageable);
 
-    void updateCount(String field, Long id, Long count);
+    void updateCount(String field, Map<String, Long> countingLog);
 
 }
