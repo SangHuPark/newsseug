@@ -57,8 +57,8 @@ public class ArticleService {
             CustomUserDetails userDetails, Long articleId)
     {
 
-        Article article = articleRepository.getOrThrow(articleId);
-//        Article article = articleCacheManager.getCached(articleId);
+//        Article article = articleRepository.getOrThrow(articleId);
+        Article article = articleCacheManager.getCached(articleId);
 
         Long incrementedViewCount = redisCounterService.increaseViewCount(articleId);
         Long likeCount = redisCounterService.getLikeCount(articleId);
