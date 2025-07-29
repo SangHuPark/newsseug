@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit;
 @RequiredArgsConstructor
 public enum CacheType {
 
-    ARTICLE("article", 50, 180);
+    ARTICLE("article", 1024, 1800);
 
     private final String name;
     private final int maximumSize;
