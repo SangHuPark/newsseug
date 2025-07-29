@@ -60,7 +60,7 @@ public class ArticleServiceTest {
     private CustomUserDetails userDetails;
 
     @InjectMocks
-    private ArticleServiceImpl articleService;
+    private ArticleService articleService;
 
     private Member loginMember;
     private Article article;
