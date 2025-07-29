@@ -17,6 +17,7 @@ import com.a301.newsseug.external.jwt.exception.InvalidFormatException;
 import com.a301.newsseug.external.jwt.exception.InvalidSignatureException;
 import com.a301.newsseug.external.jwt.exception.UntrustworthyTokenException;
 import com.a301.newsseug.external.jwt.model.entity.TokenType;
+import com.a301.newsseug.external.jwt.repository.RedisTokenRepository;
 import com.a301.newsseug.global.util.ClockUtil;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Header;
