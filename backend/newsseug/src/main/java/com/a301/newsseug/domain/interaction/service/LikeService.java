@@ -1,10 +1,59 @@
 package com.a301.newsseug.domain.interaction.service;
 
+import com.a301.newsseug.domain.article.model.entity.Article;
+import com.a301.newsseug.domain.article.repository.ArticleRepository;
 import com.a301.newsseug.domain.auth.model.entity.CustomUserDetails;
+import com.a301.newsseug.domain.interaction.model.entity.Hate;
+import com.a301.newsseug.domain.interaction.model.entity.Like;
+import com.a301.newsseug.domain.interaction.repository.HateRepository;
+import com.a301.newsseug.domain.interaction.repository.LikeRepository;
+import com.a301.newsseug.domain.member.model.entity.Member;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import java.util.Optional;
 
-public interface LikeService {
+@Slf4j
+@Service
+@RequiredArgsConstructor
+public class LikeService {
 
-    void createLike(CustomUserDetails userDetails, Long articleId);
-    void deleteLike(CustomUserDetails userDetails, Long articleId);
-    
+    private final ArticleRepository articleRepository;
+    private final LikeRepository likeRepository;
+    private final HateRepository hateRepository;
+//    private final RedisCounterRepository redisCounterService;
+
+    @Transactional
+    public void createLike(CustomUserDetails userDetails, Long articleId) {
+
+        Member loginMember = userDetails.getMember();
+        Article article = articleRepository.getOrThrow(articleId);
+        Optional<Hate> hate = hateRepository.findByMemberAndArticle(loginMember, article);
+
+        if(hate.isPresent()) {
+            hateRepository.delete(hate.get());
+//            redisCounterService.incrementAsync("article:hateCount:", articleId, -1L);
+        }
+
+        likeRepository.save(Like.builder()
+                .member(loginMember)
+                .article(article)
+                .build()
+        );
+//        redisCounterService.incrementAsync("article:likeCount:", articleId, 1L);
+
+    }
+
+    @Transactional
+    public void deleteLike(CustomUserDetails userDetails, Long articleId) {
+
+        Member loginMember = userDetails.getMember();
+        Article article = articleRepository.getOrThrow(articleId);
+        Like like = likeRepository.getOrThrow(loginMember, article);
+        likeRepository.delete(like);
+//        redisCounterService.incrementAsync("article:likeCount:", articleId, -1L);
+
+    }
+
 }
